@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.Ouroboros::-webkit-scrollbar {
+  display: none;
+}
+
+.Ouroboros {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
