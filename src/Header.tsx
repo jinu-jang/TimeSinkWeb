@@ -7,7 +7,7 @@ interface HeaderProps {
 export default function Header(props: HeaderProps) {
     return (
         <>
-            <p>This is a header section</p>
+            <p>This is a header section. Title: {props.title}</p>
         </>
     );
 }
