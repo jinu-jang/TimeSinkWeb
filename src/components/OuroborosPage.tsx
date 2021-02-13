@@ -1,16 +1,15 @@
 import React from 'react';
-import FullPageBackground from './FullPageBackground';
 
 /* Consider using hooks when moving to functional components.
  * https://stackoverflow.com/questions/36862334/get-viewport-window-height-in-reactjs
  */
 
 interface IProps {
-    backgroundColors: Array<string>
+    children: JSX.Element[]
 }
 
 interface IState {
-    backgroundColors: Array<string>,
+    numPages: number,
     height: number,
     prevY: number
 }
@@ -20,7 +19,7 @@ export default class OuroborosPage extends React.Component<IProps, IState> {
         super(props);
 
         this.state = {
-            backgroundColors: props.backgroundColors,
+            numPages: props.children.length,
             height: 0,
             prevY: 0
         };
@@ -51,7 +50,7 @@ export default class OuroborosPage extends React.Component<IProps, IState> {
     handleScroll() {
         const scrollY = window.scrollY;
         const height = this.state.height;
-        const shiftDistance = height * this.state.backgroundColors.length;
+        const shiftDistance = height * this.state.numPages;
         const prevY = this.state.prevY;
 
         if (scrollY < height && prevY > scrollY) {
@@ -76,16 +75,13 @@ export default class OuroborosPage extends React.Component<IProps, IState> {
     }
 
     render() {
-        const carouselArr = this.state.backgroundColors.slice();
+        const carouselArr = this.props.children.slice();
         carouselArr.unshift(carouselArr[carouselArr.length - 1])
         carouselArr.push(carouselArr[1]);
 
-
         return (
             <div onScroll={this.handleScroll} className="Ouroboros">
-                {carouselArr.map((s) => {
-                    return <FullPageBackground backgroundColor={s} />
-                })}
+                {carouselArr.map((component) => component)}
             </div>
         );
 
